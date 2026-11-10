@@ -1,0 +1,46 @@
+{
+  "name": "atlassian_easy",
+  "version": "1.0.0",
+  "description": "Suite de Apoyo y Automatización Atlassian (Jira, Bitbucket, Confluence) - Atlassian Easy",
+  "main": "dist-electron/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/julvc/atlassian_easy.git"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build && tsc -p tsconfig.electron.json",
+    "electron:dev": "vite",
+    "start": "electron dist-electron/main.js"
+  },
+  "keywords": [
+    "atlassian",
+    "jira",
+    "bitbucket",
+    "confluence",
+    "electron",
+    "automation",
+    "cmmi"
+  ],
+  "author": "Julio Varas Contreras <jvarascontreras@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "lucide-react": "^1.16.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.9",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
+    "electron": "^31.0.2",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.5.2",
+    "vite": "^5.3.1",
+    "vite-plugin-electron": "^0.28.6",
+    "vite-plugin-electron-renderer": "^0.14.5"
+  }
+}

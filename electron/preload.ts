@@ -7,7 +7,15 @@ contextBridge.exposeInMainWorld('electronAPI', {
   
   loadProfiles: () => ipcRenderer.invoke('profiles:load'),
   saveProfiles: (profiles: any) => ipcRenderer.invoke('profiles:save', profiles),
-  selectDirectory: () => ipcRenderer.invoke('dialog:selectDirectory'),
+  loadWorklogs: () => ipcRenderer.invoke('worklogs:load'),
+  saveWorklogs: (worklogs: any) => ipcRenderer.invoke('worklogs:save', worklogs),
+  selectDirectory: (defaultPath?: string) => ipcRenderer.invoke('dialog:selectDirectory', defaultPath),
+  scanProject: (dirPath: string) => ipcRenderer.invoke('project:scan', dirPath),
+  
+  discoverProjects: (rootDir?: string) => ipcRenderer.invoke('projects:discover', rootDir),
+  getGitInfo: (cwd: string) => ipcRenderer.invoke('git:info', cwd),
+  gitPreflight: (payload: { cwd: string; targetBranch?: string }) => ipcRenderer.invoke('git:preflight', payload),
+  gitResolveAction: (payload: { cwd: string; action: 'abort' | 'continue' | 'open_vscode' }) => ipcRenderer.invoke('git:resolve-action', payload),
   
   runProcess: (payload: { cwd: string, command: string, args: string[] }) => ipcRenderer.invoke('runner:start', payload),
   killProcess: () => ipcRenderer.invoke('runner:kill'),

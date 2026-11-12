@@ -1,11 +1,12 @@
 {
   "name": "atlassian_easy",
   "version": "1.0.0",
+  "type": "module",
   "description": "Suite de Apoyo y Automatización Atlassian (Jira, Bitbucket, Confluence) - Atlassian Easy",
   "main": "dist-electron/main.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/julvc/atlassian_easy.git"
+    "url": "https://github.com/julvc/atlassian_easier.git"
   },
   "scripts": {
     "dev": "vite",
@@ -22,7 +23,7 @@
     "automation",
     "cmmi"
   ],
-  "author": "Julio Varas Contreras <jvarascontreras@gmail.com>",
+  "author": "Julio Varas Contreras <jvarasccontreras@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "lucide-react": "^1.16.0",

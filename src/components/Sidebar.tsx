@@ -106,8 +106,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onSelectView }) =
         <div className="text-xs text-gray-900 dark:text-gray-100 font-bold truncate">
           {activeProfile?.name || 'Sin perfil activo'}
         </div>
-        <div className="text-[10px] text-gray-500 dark:text-gray-400 truncate font-mono">
-          {activeProfile?.projectPath || 'Ruta no configurada'}
+        <div className={`text-[10px] truncate font-mono ${activeProfile?.projectPath ? 'text-gray-500 dark:text-gray-400' : 'text-amber-600 dark:text-amber-400 font-semibold'}`}>
+          {activeProfile?.projectPath || '⚠️ Sin carpeta local'}
         </div>
       </div>
     </aside>

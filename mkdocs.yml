@@ -1,0 +1,68 @@
+site_name: "Atlassian Easier Suite - Manual de Usuario y Gobernanza CMMI v3.0"
+site_description: "Manual integral de operación, flujos de negocio, arquitectura y resolución de incidencias para la Suite de Automatización Atlassian."
+site_author: "Julio Varas Contreras <julio.varas@sonda.com>"
+repo_url: "https://bitbucket.org/sondacode/cotizador-claude-corporativo"
+repo_name: "SONDA Bitbucket"
+
+theme:
+  name: material
+  language: es
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/brightness-7
+        name: Cambiar a modo oscuro
+    - scheme: slate
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/brightness-4
+        name: Cambiar a modo claro
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - attr_list
+  - def_list
+
+nav:
+  - "Inicio & Visión General": index.md
+  - "Guía de Inicio Rápido": guia_rapida.md
+  - "Manual de Usuario":
+      - "Navegación e Interfaz": manual_usuario.md
+      - "Smoke Test vs Ejecución Real": ejecucion_y_pipeline.md
+      - "Catálogo Multi-Proyecto & Bitbucket": catalogo_y_proyectos.md
+      - "Bitácora & Imputación de Horas": bitacora_y_worklogs.md
+  - "Arquitectura & Gobernanza":
+      - "Modelos CMMI v3.0 & Ágil": modelos_gobernanza.md
+      - "Flujo Git Concurrente & Conflictos": flujo_git_concurrente.md
+      - "Diagramas de Secuencia": arquitectura_y_flujos.md
+  - "Configuración & Tokens": configuracion_credenciales.md
+  - "Resolución de Problemas (FAQ)": resolucion_problemas.md

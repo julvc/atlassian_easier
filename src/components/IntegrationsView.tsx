@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { atlassianService } from '../services/atlassianService';
+import { ChainIntegrationsIcon } from './icons/NavigationIcons';
 
 export const IntegrationsView: React.FC = () => {
   const { activeProfile, saveProfile, addLog } = useApp();
@@ -72,31 +73,38 @@ export const IntegrationsView: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-slate-950">
-      <div>
-        <h2 className="text-lg font-bold text-white">Integraciones Bitbucket & Confluence</h2>
-        <p className="text-xs text-slate-400 mt-0.5">
-          Conexión manual por URLs y credenciales para control de versiones y documentación.
-        </p>
+    <div className="flex-1 overflow-y-auto p-6 space-y-6 select-none">
+      <div className="flex items-center space-x-3">
+        <ChainIntegrationsIcon size={26} />
+        <div>
+          <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">Integraciones Bitbucket & Confluence</h2>
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+            Conexión por URLs directas y tokens para control de versiones y documentación de entrega.
+          </p>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* BITBUCKET PANEL */}
-        <div className={`p-6 rounded-2xl border ${activeProfile.enableBitbucket ? 'bg-slate-900 border-slate-800' : 'bg-slate-900/40 border-slate-800/40 opacity-70'} space-y-4`}>
+        <div className={`glass-panel p-6 rounded-2xl border transition-all ${
+          activeProfile.enableBitbucket 
+            ? 'border-brand-500/30 dark:border-brand-500/40' 
+            : 'opacity-60 border-black/10 dark:border-white/10'
+        } space-y-4 shadow-xs`}>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2.5">
               <span className="text-2xl">🐙</span>
               <div>
-                <h3 className="text-sm font-bold text-white">Bitbucket Cloud</h3>
-                <p className="text-[11px] text-slate-400">Control de código, ramas y tags de release</p>
+                <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100">Bitbucket Cloud</h3>
+                <p className="text-[11px] text-gray-500 dark:text-gray-400">Control de código, ramas y tags de release</p>
               </div>
             </div>
-            <label className="flex items-center space-x-2 text-xs font-semibold text-slate-300">
+            <label className="flex items-center space-x-2 text-xs font-semibold text-gray-700 dark:text-gray-300 cursor-pointer">
               <input
                 type="checkbox"
                 checked={activeProfile.enableBitbucket}
                 onChange={(e) => saveProfile({ ...activeProfile, enableBitbucket: e.target.checked })}
-                className="rounded border-slate-700 text-sky-600 focus:ring-0"
+                className="rounded border-gray-400 text-brand-600 focus:ring-0"
               />
               <span>Habilitar</span>
             </label>
@@ -105,33 +113,33 @@ export const IntegrationsView: React.FC = () => {
           {activeProfile.enableBitbucket && (
             <div className="space-y-3 pt-2">
               <div>
-                <label className="block text-xs text-slate-400 mb-1">URL Directa del Repositorio (Manual):</label>
+                <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1 font-medium">URL Directa del Repositorio (Manual):</label>
                 <input
                   type="text"
                   value={activeProfile.bitbucketRepoUrl || ''}
                   onChange={(e) => saveProfile({ ...activeProfile, bitbucketRepoUrl: e.target.value })}
                   placeholder="https://bitbucket.org/sondacode/cotizador-claude-corporativo"
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-xs text-white"
+                  className="w-full glass-input"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs text-slate-400 mb-1">Workspace:</label>
+                  <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1 font-medium">Workspace:</label>
                   <input
                     type="text"
                     value={activeProfile.bitbucketWorkspace}
                     onChange={(e) => saveProfile({ ...activeProfile, bitbucketWorkspace: e.target.value })}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-xs text-white"
+                    className="w-full glass-input"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-slate-400 mb-1">Repo Slug:</label>
+                  <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1 font-medium">Repo Slug:</label>
                   <input
                     type="text"
                     value={activeProfile.bitbucketRepoSlug}
                     onChange={(e) => saveProfile({ ...activeProfile, bitbucketRepoSlug: e.target.value })}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-xs text-white"
+                    className="w-full glass-input"
                   />
                 </div>
               </div>
@@ -141,7 +149,7 @@ export const IntegrationsView: React.FC = () => {
                   type="button"
                   onClick={testBitbucketConnection}
                   disabled={isTestingBB}
-                  className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-sky-300 text-xs font-semibold rounded-lg border border-slate-700 flex items-center space-x-1.5"
+                  className="glass-button px-4 py-2 text-xs font-semibold rounded-xl flex items-center space-x-1.5"
                 >
                   <span>{isTestingBB ? '⏳' : '🧪'}</span>
                   <span>Probar Conexión Bitbucket</span>
@@ -149,40 +157,45 @@ export const IntegrationsView: React.FC = () => {
               </div>
 
               {bitbucketStatus && (
-                <div className={`p-2.5 rounded-lg text-xs font-medium border ${bitbucketStatus.startsWith('✓') ? 'bg-emerald-950/60 text-emerald-300 border-emerald-800/50' : 'bg-rose-950/60 text-rose-300 border-rose-800/50'}`}>
+                <div className={`p-3 rounded-xl text-xs font-medium border ${
+                  bitbucketStatus.startsWith('✓') 
+                    ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800/50' 
+                    : 'bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-800/50'
+                }`}>
                   {bitbucketStatus}
                 </div>
               )}
 
               {/* Commit Assistant */}
-              <div className="mt-4 pt-4 border-t border-slate-800 space-y-3">
-                <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+              <div className="mt-4 pt-4 border-t border-black/10 dark:border-white/10 space-y-3">
+                <h4 className="text-xs font-bold text-gray-800 dark:text-gray-200 uppercase tracking-wider">
                   Asistente de Commits CMMI
                 </h4>
                 <div className="grid grid-cols-3 gap-2">
                   <div className="col-span-1">
-                    <label className="block text-[10px] text-slate-400 mb-0.5">Clave Jira:</label>
+                    <label className="block text-[10px] text-gray-500 dark:text-gray-400 mb-0.5">Clave Jira:</label>
                     <input
                       type="text"
                       value={jiraKeyForCommit}
                       onChange={(e) => setJiraKeyForCommit(e.target.value)}
                       placeholder="CCYACE-31"
-                      className="w-full bg-slate-800 border border-slate-700 rounded-lg p-1.5 text-xs text-sky-300 font-mono font-bold"
+                      className="w-full glass-input font-mono font-bold text-brand-600 dark:text-brand-400"
                     />
                   </div>
                   <div className="col-span-2">
-                    <label className="block text-[10px] text-slate-400 mb-0.5">Mensaje descriptivo:</label>
+                    <label className="block text-[10px] text-gray-500 dark:text-gray-400 mb-0.5">Mensaje descriptivo:</label>
                     <input
                       type="text"
                       value={commitMessage}
                       onChange={(e) => setCommitMessage(e.target.value)}
-                      className="w-full bg-slate-800 border border-slate-700 rounded-lg p-1.5 text-xs text-white"
+                      className="w-full glass-input"
                     />
                   </div>
                 </div>
                 <button
+                  type="button"
                   onClick={executeManualCmmiCommit}
-                  className="w-full py-2 bg-sky-700 hover:bg-sky-600 text-white text-xs font-bold rounded-lg shadow-sm"
+                  className="glass-button-primary w-full py-2.5 text-white text-xs font-bold rounded-xl shadow-md cursor-pointer"
                 >
                   ✓ Generar Commit CMMI en Repositorio Local
                 </button>
@@ -192,21 +205,25 @@ export const IntegrationsView: React.FC = () => {
         </div>
 
         {/* CONFLUENCE PANEL */}
-        <div className={`p-6 rounded-2xl border ${activeProfile.enableConfluence ? 'bg-slate-900 border-slate-800' : 'bg-slate-900/40 border-slate-800/40 opacity-70'} space-y-4`}>
+        <div className={`glass-panel p-6 rounded-2xl border transition-all ${
+          activeProfile.enableConfluence 
+            ? 'border-brand-500/30 dark:border-brand-500/40' 
+            : 'opacity-60 border-black/10 dark:border-white/10'
+        } space-y-4 shadow-xs`}>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2.5">
               <span className="text-2xl">📘</span>
               <div>
-                <h3 className="text-sm font-bold text-white">Confluence Cloud</h3>
-                <p className="text-[11px] text-slate-400">Documentación de arquitectura y entregables</p>
+                <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100">Confluence Cloud</h3>
+                <p className="text-[11px] text-gray-500 dark:text-gray-400">Documentación de arquitectura y entregables</p>
               </div>
             </div>
-            <label className="flex items-center space-x-2 text-xs font-semibold text-slate-300">
+            <label className="flex items-center space-x-2 text-xs font-semibold text-gray-700 dark:text-gray-300 cursor-pointer">
               <input
                 type="checkbox"
                 checked={activeProfile.enableConfluence}
                 onChange={(e) => saveProfile({ ...activeProfile, enableConfluence: e.target.checked })}
-                className="rounded border-slate-700 text-sky-600 focus:ring-0"
+                className="rounded border-gray-400 text-brand-600 focus:ring-0"
               />
               <span>Habilitar</span>
             </label>
@@ -215,24 +232,24 @@ export const IntegrationsView: React.FC = () => {
           {activeProfile.enableConfluence && (
             <div className="space-y-3 pt-2">
               <div>
-                <label className="block text-xs text-slate-400 mb-1">URL Directa del Espacio o Página (Manual):</label>
+                <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1 font-medium">URL Directa del Espacio o Página (Manual):</label>
                 <input
                   type="text"
                   value={activeProfile.confluenceUrl || ''}
                   onChange={(e) => saveProfile({ ...activeProfile, confluenceUrl: e.target.value })}
                   placeholder="https://sonda.atlassian.net/wiki/spaces/CCYACE/pages/..."
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-xs text-white"
+                  className="w-full glass-input"
                 />
               </div>
 
               <div>
-                <label className="block text-xs text-slate-400 mb-1">Space Key (Clave del Espacio):</label>
+                <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1 font-medium">Space Key (Clave del Espacio):</label>
                 <input
                   type="text"
                   value={activeProfile.confluenceSpaceKey || ''}
                   onChange={(e) => saveProfile({ ...activeProfile, confluenceSpaceKey: e.target.value })}
                   placeholder="ej: CCYACE"
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-xs text-white"
+                  className="w-full glass-input uppercase font-mono font-bold"
                 />
               </div>
 
@@ -241,7 +258,7 @@ export const IntegrationsView: React.FC = () => {
                   type="button"
                   onClick={testConfluenceConnection}
                   disabled={isTestingConf}
-                  className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-amber-300 text-xs font-semibold rounded-lg border border-slate-700 flex items-center space-x-1.5"
+                  className="glass-button px-4 py-2 text-xs font-semibold rounded-xl flex items-center space-x-1.5"
                 >
                   <span>{isTestingConf ? '⏳' : '🧪'}</span>
                   <span>Probar Conexión Confluence</span>
@@ -249,7 +266,11 @@ export const IntegrationsView: React.FC = () => {
               </div>
 
               {confluenceStatus && (
-                <div className={`p-2.5 rounded-lg text-xs font-medium border ${confluenceStatus.startsWith('✓') ? 'bg-emerald-950/60 text-emerald-300 border-emerald-800/50' : 'bg-rose-950/60 text-rose-300 border-rose-800/50'}`}>
+                <div className={`p-3 rounded-xl text-xs font-medium border ${
+                  confluenceStatus.startsWith('✓') 
+                    ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800/50' 
+                    : 'bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-800/50'
+                }`}>
                   {confluenceStatus}
                 </div>
               )}
